@@ -23,8 +23,8 @@ fn main() {
     // --- Memory Load Thread ---
     thread::spawn(|| {
         println!("Memory load thread started...");
-        // Allocate approx 500MB of data
-        let size = 500 * 1024 * 1024; // 500MB
+        // Allocate approx 80MB of data
+        let size = 80 * 1024 * 1024; // 80MB
         let mut _data: Vec<u8> = vec![0u8; size];
         
         // Touch the memory to ensure it's actually committed
