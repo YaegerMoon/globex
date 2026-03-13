@@ -8,6 +8,8 @@ pub mod models;
 pub mod repository;
 pub mod services;
 
+use handlers::health_check;
+
 #[derive(Clone)]
 pub struct AppState {
     pub pool: Pool<Sqlite>,
@@ -32,6 +34,7 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(|| async { "Hello, Axum!" }))
+        .route("/health", get(health_check))
         .with_state(state);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
