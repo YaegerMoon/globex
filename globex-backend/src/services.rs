@@ -1,3 +1,7 @@
+pub mod market_collector;
+pub mod index_calculator;
+pub mod registry;
+
 use crate::{error::AppError, models::Quote};
 
 pub trait StockExchange {
