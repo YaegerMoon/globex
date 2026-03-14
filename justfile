@@ -19,6 +19,19 @@ dev-frontend:
     @echo "Starting frontend..."
     cd globex-frontend && pnpm dev
 
+# Kill backend development server
+kill-backend:
+    @echo "Killing backend..."
+    @pkill -f globex-backend || echo "Backend was not running."
+
+# Kill frontend development server
+kill-frontend:
+    @echo "Killing frontend..."
+    @pkill -f "next dev" || echo "Frontend was not running."
+
+# Kill both backend and frontend
+kill-all: kill-backend kill-frontend
+
 # Build both applications
 build: build-backend build-frontend
 

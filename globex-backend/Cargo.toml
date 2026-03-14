@@ -16,6 +16,7 @@ yahoo_finance_api = "2.3"
 backoff = { version = "0.4", features = ["tokio"] }
 itertools = "0.14"
 time = { version = "0.3", features = ["formatting", "parsing", "macros"] }
+tower-http = { version = "0.6.8", features = ["cors"] }
 
 [lib]
 path = "src/lib.rs"

@@ -34,17 +34,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 match collector.fetch_index_data(config).await {
                     Ok(mut index) => {
                         // 2. Fetch historical data if needed for Fear & Greed
-                        let history = repository::get_historical_prices(&pool_clone, config.exchange_id, 150).await.unwrap_or_default();
+                        let history = repository::get_historical_prices(&pool_clone, config.exchange_id, 250).await.unwrap_or_default();
                         
                         if history.len() < 125 {
                             println!("Syncing historical data for {}...", config.exchange_id);
-                            if let Ok(new_history) = collector.fetch_historical_data(config, 150).await {
+                            if let Ok(new_history) = collector.fetch_historical_data(config, 250).await {
                                 let _ = repository::upsert_historical_prices(&pool_clone, &new_history).await;
                             }
                         }
 
                         // 3. Calculate Fear & Greed
-                        let updated_history = repository::get_historical_prices(&pool_clone, config.exchange_id, 150).await.unwrap_or_default();
+                        let updated_history = repository::get_historical_prices(&pool_clone, config.exchange_id, 250).await.unwrap_or_default();
                         index.fear_greed_score = IndexCalculator::calculate_fear_greed_score(&updated_history, index.current_price);
 
                         // 4. Save to DB

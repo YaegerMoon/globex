@@ -5,6 +5,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/a
 export interface MarketIndex {
   exchange_id: string;
   name: string;
+  country_code?: string;
   current_price: number;
   prev_close: number;
   change_percent: number;
@@ -12,6 +13,8 @@ export interface MarketIndex {
   volume?: number;
   fear_greed_score?: number;
   last_updated_at: string;
+  open_time_utc?: string;
+  close_time_utc?: string;
 }
 
 export interface TopStock {

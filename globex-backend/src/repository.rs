@@ -9,9 +9,10 @@ pub async fn get_all_exchanges(pool: &Pool<Sqlite>) -> Result<Vec<Exchange>, sql
 
 pub async fn upsert_market_index(pool: &Pool<Sqlite>, index: &MarketIndex) -> Result<(), sqlx::Error> {
     sqlx::query(
-        "INSERT INTO market_indices (exchange_id, name, current_price, prev_close, change_percent, market_cap, volume, fear_greed_score, last_updated_at)
-         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)
+        "INSERT INTO market_indices (exchange_id, name, country_code, current_price, prev_close, change_percent, market_cap, volume, fear_greed_score, last_updated_at)
+         VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)
          ON CONFLICT(exchange_id) DO UPDATE SET
+            country_code=excluded.country_code,
             current_price=excluded.current_price,
             prev_close=excluded.prev_close,
             change_percent=excluded.change_percent,
@@ -22,6 +23,7 @@ pub async fn upsert_market_index(pool: &Pool<Sqlite>, index: &MarketIndex) -> Re
     )
     .bind(&index.exchange_id)
     .bind(&index.name)
+    .bind(&index.country_code)
     .bind(index.current_price)
     .bind(index.prev_close)
     .bind(index.change_percent)
@@ -64,16 +66,25 @@ pub async fn get_historical_prices(pool: &Pool<Sqlite>, exchange_id: &str, limit
 }
 
 pub async fn get_market_summaries(pool: &Pool<Sqlite>) -> Result<Vec<MarketIndex>, sqlx::Error> {
-    sqlx::query_as::<_, MarketIndex>("SELECT * FROM market_indices")
-        .fetch_all(pool)
-        .await
+    sqlx::query_as::<_, MarketIndex>(
+        "SELECT mi.*, e.open_time_utc, e.close_time_utc 
+         FROM market_indices mi
+         LEFT JOIN exchanges e ON mi.exchange_id = e.id"
+    )
+    .fetch_all(pool)
+    .await
 }
 
 pub async fn get_market_detail(pool: &Pool<Sqlite>, exchange_id: &str) -> Result<Option<MarketIndex>, sqlx::Error> {
-    sqlx::query_as::<_, MarketIndex>("SELECT * FROM market_indices WHERE exchange_id = ?")
-        .bind(exchange_id)
-        .fetch_optional(pool)
-        .await
+    sqlx::query_as::<_, MarketIndex>(
+        "SELECT mi.*, e.open_time_utc, e.close_time_utc 
+         FROM market_indices mi
+         LEFT JOIN exchanges e ON mi.exchange_id = e.id
+         WHERE mi.exchange_id = ?"
+    )
+    .bind(exchange_id)
+    .fetch_optional(pool)
+    .await
 }
 
 pub async fn get_top_stocks(pool: &Pool<Sqlite>, exchange_id: &str) -> Result<Vec<TopStock>, sqlx::Error> {

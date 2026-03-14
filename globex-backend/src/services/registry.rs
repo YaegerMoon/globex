@@ -1,17 +1,37 @@
 pub struct MarketConfig {
     pub exchange_id: &'static str,
     pub index_symbol: &'static str,
+    pub country_code: &'static str,
 }
 
 pub const MARKET_REGISTRY: &[MarketConfig] = &[
-    MarketConfig { exchange_id: "NYSE", index_symbol: "^GSPC" },     // S&P 500 for NYSE
-    MarketConfig { exchange_id: "NASDAQ", index_symbol: "^IXIC" },   // NASDAQ Composite
-    MarketConfig { exchange_id: "KRX", index_symbol: "^KS11" },      // KOSPI
-    MarketConfig { exchange_id: "JPX", index_symbol: "^N225" },      // Nikkei 225
-    MarketConfig { exchange_id: "LSE", index_symbol: "^FTSE" },      // FTSE 100
-    MarketConfig { exchange_id: "FWB", index_symbol: "^GDAXI" },     // DAX
-    MarketConfig { exchange_id: "HKEX", index_symbol: "^HSI" },      // Hang Seng Index
-    MarketConfig { exchange_id: "SSE", index_symbol: "000001.SS" },  // SSE Composite
-    MarketConfig { exchange_id: "TSX", index_symbol: "^GSPTSE" },   // S&P/TSX Composite
-    MarketConfig { exchange_id: "ASX", index_symbol: "^AXJO" },      // S&P/ASX 200
+    MarketConfig { exchange_id: "NYSE", index_symbol: "^GSPC", country_code: "US" },
+    MarketConfig { exchange_id: "NASDAQ", index_symbol: "^IXIC", country_code: "US" },
+    MarketConfig { exchange_id: "KRX", index_symbol: "^KS11", country_code: "KR" },
+    MarketConfig { exchange_id: "JPX", index_symbol: "^N225", country_code: "JP" },
+    MarketConfig { exchange_id: "LSE", index_symbol: "^FTSE", country_code: "GB" },
+    MarketConfig { exchange_id: "FWB", index_symbol: "^GDAXI", country_code: "DE" },
+    MarketConfig { exchange_id: "HKEX", index_symbol: "^HSI", country_code: "HK" },
+    MarketConfig { exchange_id: "SSE", index_symbol: "000001.SS", country_code: "CN" },
+    MarketConfig { exchange_id: "TSX", index_symbol: "^GSPTSE", country_code: "CA" },
+    MarketConfig { exchange_id: "ASX", index_symbol: "^AXJO", country_code: "AU" },
+    MarketConfig { exchange_id: "EURONEXT", index_symbol: "^AEX", country_code: "NL" },
+    MarketConfig { exchange_id: "SZSE", index_symbol: "399001.SZ", country_code: "CN" },
+    MarketConfig { exchange_id: "BSE", index_symbol: "^BSESN", country_code: "IN" },
+    MarketConfig { exchange_id: "NSE", index_symbol: "^NSEI", country_code: "IN" },
+    MarketConfig { exchange_id: "TADAWUL", index_symbol: "^TASI.SR", country_code: "SA" },
+    MarketConfig { exchange_id: "SIX", index_symbol: "^SSMI", country_code: "CH" },
+    MarketConfig { exchange_id: "TWSE", index_symbol: "^TWII", country_code: "TW" },
+    MarketConfig { exchange_id: "B3", index_symbol: "^BVSP", country_code: "BR" },
+    MarketConfig { exchange_id: "JSE", index_symbol: "^J200.JO", country_code: "ZA" },
+    MarketConfig { exchange_id: "BME", index_symbol: "^IBEX", country_code: "ES" },
+    MarketConfig { exchange_id: "IDX", index_symbol: "^JKSE", country_code: "ID" },
+    MarketConfig { exchange_id: "SGX", index_symbol: "^STI", country_code: "SG" },
+    MarketConfig { exchange_id: "SET", index_symbol: "^SET.BK", country_code: "TH" },
+    MarketConfig { exchange_id: "BIST", index_symbol: "XU100.IS", country_code: "TR" },
+    MarketConfig { exchange_id: "MYX", index_symbol: "^KLSE", country_code: "MY" },
+    MarketConfig { exchange_id: "BMV", index_symbol: "^MXX", country_code: "MX" },
+    MarketConfig { exchange_id: "TASE", index_symbol: "^TA125.TA", country_code: "IL" },
+    MarketConfig { exchange_id: "WSE", index_symbol: "^WIG20", country_code: "PL" },
+    MarketConfig { exchange_id: "PSE", index_symbol: "^PSEI.PS", country_code: "PH" },
 ];

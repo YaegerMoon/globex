@@ -28,6 +28,7 @@ pub struct Quote {
 pub struct MarketIndex {
     pub exchange_id: String,
     pub name: String,
+    pub country_code: Option<String>,
     pub current_price: f64,
     pub prev_close: f64,
     pub change_percent: f64,
@@ -35,6 +36,8 @@ pub struct MarketIndex {
     pub volume: Option<i64>,
     pub fear_greed_score: Option<i32>,
     pub last_updated_at: DateTime<Utc>,
+    pub open_time_utc: Option<String>,
+    pub close_time_utc: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, FromRow, Clone)]
