@@ -53,7 +53,7 @@ impl MarketCollector {
             current_price: latest.close,
             prev_close,
             change_percent,
-            market_cap: None,
+            market_cap: Some(config.base_market_cap),
             volume: Some(latest.volume as i64),
             fear_greed_score: None,
             last_updated_at: Utc::now(),
